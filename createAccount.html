@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/layout.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./JS/script.js"></script>
+</head>
+<body>
+    <nav class="createAccountNav">
+        <img class="logo-black" src="assets/logowill-preta.svg" alt="">
+        
+        <ul>
+            <li><a href="index.html" class="active-black">Home</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="bg-image-createAccount">
+            <figure id="container-createAccount">
+                <figcaption>FAZ PARTE DA SUA VIDA.</figcaption>
+            </figure>
+        </section>
+        
+        <section class="container">
+            <div class="contentCreateAccount">
+
+                <h1>CADASTRE-SE</h1>
+
+                    <div class="label-float">
+                        <input type="text" name="email" id="email" placeholder=" ">
+                        <label>Insira seu email</label>
+                    </div>
+                    <div class="label-float">
+                        <input type="text" name="cpf" id="cpf" placeholder=" ">
+                        <label>Insira seu CPF</label>
+                    </div>
+                    <div class="label-float">
+                        <input type="text" name="name" id="name" placeholder=" ">
+                        <label>Insira seu nome</label>
+                    </div>
+                    <div class="label-float">
+                        <input type="number" name="age" id="age" placeholder=" ">
+                        <label>Insira sua idade</label>
+                    </div>
+                    <input type="button" class="btn" value="CRIAR CONTA" onclick="CriarUmNovoUsuario()">
+        </section>
+    </main>
+
+  <div class="modal fade" id="Success" tabindex="-1" aria-labelledby="modalSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSuccessLabel">Parabéns</h5>
+        </div>
+        <div class="modal-body">
+          Sua conta foi registrada com sucesso.
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btnModalContaCriada" class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalErrorAoCriarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Insira todos os dados</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Verifique se todos os dados foram inseridos de forma correta.
+          <small class="text-muted">OBS.: Seu CPF não deve conter caracteres especiais</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

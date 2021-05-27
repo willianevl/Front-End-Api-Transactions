@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    padding: 10px 100px;
+    box-sizing: border-box;
+    transition: .5s;
+    z-index: 1;
+}
+
+nav.logo,
+nav.logo-black,
+nav.white-logo {
+    float: left;
+}
+
+.logo  {
+    height: 80px;
+    transition: .5s;
+    padding: 5px 20px;
+}
+
+.logo-black  {
+    height: 80px;
+    transition: .5s;
+    padding: 5px 20px;
+    margin-left: -200px;
+}
+
+nav.navRoll .logo {
+    height: 60px;
+    z-index: 1;
+}
+
+nav ul {
+    float: right;
+    margin-right: -30px;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    list-style: none;
+    margin-top: 15px;
+}
+
+nav ul li a{
+    list-style: 80px;
+    color: #262626;
+    padding: 5px 20px;
+    margin-top: 15px;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .5s;
+}
+
+nav.navRoll ul li a {
+    color: #fff;
+    line-height: 60px;
+}
+
+nav ul li a.active-black {
+    color: #ffff;
+    background-color: #000;
+}
+
+
+nav ul li a.active-black {
+    color: #ffff;
+    background-color: #000;
+}
+
+
+nav ul li a.active,
+nav ul li a:hover {
+    color: #ffff;
+    background-color: #8a05be;
+}
+
+section.bg-image {
+    width: 100%;
+    height: 100vh;
+    background: url('../assets/picture1.jpg') bottom;
+    background-size: cover;
+}
+
+nav.navRoll {
+    background-color: rgba(0,0,0, .8);
+    height: 75px;
+    padding: 0px 25px ;
+}
+
+
+
+#container {
+    display: inline-block;
+    position: relative;
+}
+  
+#container figcaption{
+    width: 350px;
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    top: 145px;
+    left: 20px;
+    font-size: 80px;
+    color: black;
+    z-index: 0;
+}
+
+section .content{
+    display: inline-flex;
+}
+
+
+section .subContent {
+    float: left;
+    width: 50%;
+    height: 600px;
+    margin: 64px 0px 64px 64px;
+    background-color: #191919;
+}
+
+section .subContent h2{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    padding-left: 50px;
+    padding-top: 50px;
+    line-height: 56px;
+}
+
+section #figureContent {
+    margin-left: 50px;
+    margin-top: 25px;
+}
+
+section .subContent p {
+    font-size: 18px;
+    line-height: 24px;
+    padding-left: 50px;
+    color: white;
+}
+
+section .subContent2 {
+    float: right;
+    margin: 64px 64px 64px 0px;
+    width: 50%;
+    height: 600px;
+    background-color: white;
+}
+
+section .subContent2 input {
+    width: 450px;
+    margin-bottom: 20px;
+} 
+
+.btn {
+    background-color: #8a05be;
+    color: white;
+    border: 1px solid #7503a1;
+}
+
+.btn:hover {
+    background-color: #7503a1;
+    color: white;
+}
+
+section .subContent2 a {
+    text-decoration: none;
+    color: #ccc;
+    padding-left: 250px;
+}
+
+section .subContent2 a:hover {
+    color: #b687fc;
+}
+
+section .subContent2 h2 {
+    text-align: center;
+    color: #d4d1d1;
+    padding-top: 200px;
+}
+
+
+
+.label-float{
+    position: relative;
+    padding-top: 13px;
+}
+  
+.label-float input{
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    outline: none;
+    min-width: 250px;
+    padding: 15px 20px;
+    font-size: 16px;
+    transition: all .1s linear;
+    margin: 0px 75px;
+    -webkit-transition: all .1s linear;
+    -moz-transition: all .1s linear;
+    -webkit-appearance:none;
+}
+  
+.label-float input:focus{
+    border: 2px solid #000000;
+}
+  
+.label-float input::placeholder{
+    color:transparent;
+}
+  
+.label-float label{
+    pointer-events: none;
+    position: absolute;
+    top: calc(50% - 20px);
+    left: 80px;
+    transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    -moz-transition: all .1s linear;
+    background-color: white;
+    padding: 5px;
+    box-sizing: border-box;
+}
+  
+.label-float input:focus + label,
+.label-float input:not(:placeholder-shown) + label{
+  font-size: 13px;
+  top: 0;
+  color: #000000;
+}
+
+
+footer{
+    position: absolute;
+    right: 640px;
+}
+
+/* create account */
+
+section.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+section .contentCreateAccount input {
+    width: 450px;
+    margin-bottom: 20px;
+} 
+
+section .contentCreateAccount h1 {
+    text-align: center;
+    color: #d4d1d1;
+    margin-top: 70px;
+    position: relative;
+}
+
+.contentCreateAccount input[type=button]{
+    margin-left: 75px;
+    height: 55px;
+    position: fixed;
+}
+
+section.bg-image-createAccount {
+    width: 100%;
+    height: 100vh;
+    background: url('../assets/bg-create-login.jpg');
+    background-size: cover;
+    position: absolute;
+    z-index: 0;
+}
+
+#container-createAccount figcaption {
+    width: 350px;
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    top: 145px;
+    left: 30px;
+    font-size: 80px;
+    color: black;
+    z-index: 0;
+}
+
+.usersContent table {
+    margin-top: 30px;
+    position: relative;
+    background-color: #f5f5f5;
+}
+
+.usersContent input {
+    margin-top: 100px;
+    position: relative;
+}
+
+.table-btn-excluir {
+    background-color: rgb(230, 55, 55);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 4px;
+    color: white;
+}
+
+.table-btn-excluir:hover{
+    background-color: rgb(199, 64, 64);
+}
+
+.table-btn-editar {
+    background-color: rgb(65, 65, 173);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 4px;
+    color: white;
+}
+
+.table-btn-editar:hover{
+    background-color: rgb(58, 58, 145);
+}
+
+section.bg-img-lisUser {
+    width: 100%;
+    height: 100vh;
+    background: url('../assets/UserListIMG.jpg');
+    background-repeat: repeat-y;
+    background-size: cover;
+    position: fixed;
+    z-index: 0;
+}
+
+.white-logo {
+    height: 80px;
+    transition: .5s;
+    padding: 5px 20px;
+    margin-left: -370px;
+}
+
+span.purple {
+    color: #8a05be;
+}
