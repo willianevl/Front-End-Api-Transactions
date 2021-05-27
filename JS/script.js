@@ -4,11 +4,15 @@ window.addEventListener('load', () => {
     .then(response => {
         ImprimirDadosDoUsuárioEmTabela(response.data.data);
     });
+
+    axios.get('https://growdev-api-transactions.herokuapp.com/users')
+    .then(response => {
+        EncontrarID(response.data.data);
+    });
 });
 
-
-function logarComID(){
-    window.location.href = 'users.html'
+function AbrirEmOutraURL(href){
+    return window.location.href = `${href}`;
 }
 
 function mostrarModalDeErroAoCriarusuario(){
@@ -16,12 +20,13 @@ function mostrarModalDeErroAoCriarusuario(){
     myModal.show();
 }
 
+
 function mostrarModalSuccess(){
     var myModal = new bootstrap.Modal(document.getElementById('Success'), {});
     myModal.show();
 
     document.getElementById('btnModalContaCriada').addEventListener('click', function(){
-        window.location.href = 'index.html'
+        AbrirEmOutraURL('index.html');
     });
 }
 
@@ -36,6 +41,19 @@ function CriarUmNovoUsuario(){
     NewUser.catch(() => mostrarModalDeErroAoCriarusuario());
     NewUser.then(() =>  mostrarModalSuccess());
 };
+
+function mostrarUsuarioNãoEncontrado(){
+    var myModal = new bootstrap.Modal(document.getElementById('userNotFound'), {});
+    myModal.show();
+}
+
+function logarComID(){
+    const UserID = document.getElementById('UserId').value;
+
+    const logar = axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}`);
+    logar.catch(() => mostrarUsuarioNãoEncontrado());
+    logar.then(() => AbrirEmOutraURL('usuarioPag.html'))
+}
 
 
 function ImprimirDadosDoUsuárioEmTabela(data){
@@ -61,11 +79,12 @@ function ImprimirDadosDoUsuárioEmTabela(data){
     dados.innerHTML = newContent;
 }
 
+function AdmCriaUmNovoUsuário(){
+    console.log('willian')
+}
+
 function RetornaDadosComoPromessa(){
     return axios.get('https://growdev-api-transactions.herokuapp.com/users');
 }
-
-
-
 
 

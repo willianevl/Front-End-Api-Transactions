@@ -8,26 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script
     src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript">
-        $(window).on('scroll', function () {
-            if($(window).scrollTop()){
-                $('nav').addClass('navRoll');
-            }
-            else {
-                $('nav').removeClass('navRoll');
-            }
-        });
-    </script>
-    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="../css/layout.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./JS/script.js"></script>
+    <script src="../JS/script.js"></script>
 </head>
 <body>
     <nav>
-        <img class="logo" src="assets/logowill-roxa.svg" alt="">
+        <img class="logo" src="../assets/logowill-roxa.svg" alt="">
         
         <ul>
             <li><a href="index.html" class="active">Home</a></li>
+            <li><a class ='aHref' href="#login">fazer login</a></li>
             <li><a href="createAccount.html">CADASTRE-SE</a></li>
         </ul>
     </nav>
@@ -43,14 +34,14 @@
             <div class="subContent">
                 <h2>Cadastre-se agora mesmo</h2>
                 <figure id="figureContent">
-                    <img src="assets/scrollimage.jpg" alt="">
+                    <img src="../assets/scrollimage.jpg" alt="">
                 </figure>
                 <p>É fácil. É rápido. É para você!</p>
             </div>
             <div class="subContent2 label-float">
                 <h2>ACESSE SUA CONTA</h2>
                 
-                <div class="label-float">
+                <div id="login" class="label-float">
                     <input type="text" name="UserId" id="UserId" placeholder=" ">
                     <label>Insira seu ID</label>
                 </div>
@@ -64,7 +55,7 @@
         <p>&copy; Willian</p>
     </footer>
 
-    <div class="modal fade" id="again" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userNotFound" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -72,7 +63,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            Usuário ou senha incorretos.
+            ID Inválido
         </div>
         <div class="modal-footer">
             <button type="button" id="btnAgain" class="btn" data-bs-dismiss="modal">Fechar</button>
@@ -82,7 +73,9 @@
     </div>
 
 
-    <scrip src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></scrip>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../JS/jquery-3.1.1.min.js"></script>
+    <script src="../JS/animações.js"></script>
 </body>
 </html>
 
