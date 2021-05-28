@@ -4,7 +4,17 @@ window.addEventListener('load', () => {
     .then(response => {
         ImprimirDadosDoUsuárioEmTabela(response.data.data);
     });
+
+    axios.get('https://growdev-api-transactions.herokuapp.com/users').then((response) => {
+        let data = response.data.data;
+        data.forEach((userInf) => {
+            InformaçõesDosUsuarios.push(userInf);
+        });
+    });
 });
+
+const InformaçõesDosUsuarios = [];
+console.log(InformaçõesDosUsuarios)
 
 function AbrirEmOutraURL(href){
     return window.location.href = `${href}`;
@@ -25,19 +35,32 @@ function mostrarModalSuccess(){
     });
 }
 
+
 function CriarUmNovoUsuario(){
     const email = document.getElementById('email').value;
     const name = document.getElementById('name').value;
     const age = document.getElementById('age').value;
     const cpf = document.getElementById('cpf').value;
-    
+
     const NewUser = axios.post('https://growdev-api-transactions.herokuapp.com/users', {name: name, cpf: cpf, email: email, age: age});
+
+    const CPFJáExiste = InformaçõesDosUsuarios.find((f) => {
+        return f.cpf === cpf
+    });
+
+    if(CPFJáExiste){
+        return mostrarModalCPFJáExiste();
+    }
 
     NewUser.catch(() => mostrarModalDeErroAoCriarusuario());
     NewUser.then(() =>  mostrarModalSuccess());
-
-    console.log(NewUser);
 };
+
+function mostrarModalCPFJáExiste(){
+    var myModal = new bootstrap.Modal(document.getElementById('modalErrorCPFJáExiste'), {});
+    myModal.show();
+
+}
 
 
 function mostrarUsuarioNãoEncontrado(){
@@ -49,39 +72,26 @@ function mostrarUsuarioNãoEncontrado(){
 function validarUserIDParaLogin(){
     let UserID = document.getElementById('UserId').value;
     if(UserID === ''){
-        mostrarUsuarioNãoEncontrado();
+        return mostrarUsuarioNãoEncontrado();
     }
 }
 
-const InformaçõesDosUsuarios = [];
 
-window.addEventListener('load', () => {
-    return axios.get('https://growdev-api-transactions.herokuapp.com/users').then((response) => {
-        let data = response.data.data;
-        data.forEach((userInf) => {
-            InformaçõesDosUsuarios.push(userInf);
-        });
-    });
-});
-
-
-function logarComID(){
+function logarEImprimirDadosNaTelaDoUsuario(){
     let UserID = document.getElementById('UserId').value;
     validarUserIDParaLogin();
 
     const logar = axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}`);
-
     logar.catch(() => mostrarUsuarioNãoEncontrado());
-    logar.then(() => {
-        let user = InformaçõesDosUsuarios.find((f) => {
-            return f.id === UserID
-        });
 
+    const user = InformaçõesDosUsuarios.find((f) => {
+        return f.id === UserID
+    });
+
+    logar.then(() => {
         if(user){
             AbrirEmOutraURL('usuarioPag.html')
         }
-
-        mostrarUsuarioNãoEncontrado()
     });
 }
 
@@ -92,22 +102,23 @@ function modalComIDinf(){
 
 // Adiciona dados do usuario ao carregar a pagina do usuario
 window.addEventListener('load', () => {
-
     const id = document.getElementById('idDoUsuario');
     const name = document.getElementById('userNAME');
     const cpf = document.getElementById('userCPF');
     const email = document.getElementById('userEMAIL');
     const idade = document.getElementById('userAGE');
-
-    id.innerHTML = `${dadosUsuario.id}`;
-    name.innerHTML = `${dadosUsuario.name}`;
-    cpf.innerHTML = `${dadosUsuario.cpf}`;
-    email.innerHTML = `${dadosUsuario.email}`;
-    idade.innerHTML = `${dadosUsuario.age}`;
+        
+    id.innerHTML = `${user.id}`;
+    name.innerHTML = `${user.name}`;
+    cpf.innerHTML = `${user.cpf}`;
+    email.innerHTML = `${user.email}`;
+    idade.innerHTML = `${user.age}`;
 })
 
 
+document.getElementById('logoutUserPage').addEventListener('click', () => {
 
+});
 
 function ImprimirDadosDoUsuárioEmTabela(data){
     const dados = document.getElementById('tableBody');
