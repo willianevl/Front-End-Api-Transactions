@@ -35,7 +35,10 @@ function CriarUmNovoUsuario(){
 
     NewUser.catch(() => mostrarModalDeErroAoCriarusuario());
     NewUser.then(() =>  mostrarModalSuccess());
+
+    console.log(NewUser);
 };
+
 
 function mostrarUsuarioNãoEncontrado(){
     var myModal = new bootstrap.Modal(document.getElementById('userNotFound'), {});
@@ -50,6 +53,18 @@ function validarUserIDParaLogin(){
     }
 }
 
+const InformaçõesDosUsuarios = [];
+
+window.addEventListener('load', () => {
+    return axios.get('https://growdev-api-transactions.herokuapp.com/users').then((response) => {
+        let data = response.data.data;
+        data.forEach((userInf) => {
+            InformaçõesDosUsuarios.push(userInf);
+        });
+    });
+});
+
+
 function logarComID(){
     let UserID = document.getElementById('UserId').value;
     validarUserIDParaLogin();
@@ -57,7 +72,17 @@ function logarComID(){
     const logar = axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}`);
 
     logar.catch(() => mostrarUsuarioNãoEncontrado());
-    logar.then(() => AbrirEmOutraURL('usuarioPag.html'));
+    logar.then(() => {
+        let user = InformaçõesDosUsuarios.find((f) => {
+            return f.id === UserID
+        });
+
+        if(user){
+            AbrirEmOutraURL('usuarioPag.html')
+        }
+
+        mostrarUsuarioNãoEncontrado()
+    });
 }
 
 function modalComIDinf(){
@@ -65,8 +90,8 @@ function modalComIDinf(){
     myModal.show();
 }
 
-
-function ImprimirDadosDoUsuárioApósLogar(){
+// Adiciona dados do usuario ao carregar a pagina do usuario
+window.addEventListener('load', () => {
 
     const id = document.getElementById('idDoUsuario');
     const name = document.getElementById('userNAME');
@@ -74,20 +99,14 @@ function ImprimirDadosDoUsuárioApósLogar(){
     const email = document.getElementById('userEMAIL');
     const idade = document.getElementById('userAGE');
 
-    const dados = axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}`).then((response) => {
-        return response.data.data
-    });
+    id.innerHTML = `${dadosUsuario.id}`;
+    name.innerHTML = `${dadosUsuario.name}`;
+    cpf.innerHTML = `${dadosUsuario.cpf}`;
+    email.innerHTML = `${dadosUsuario.email}`;
+    idade.innerHTML = `${dadosUsuario.age}`;
+})
 
-    console.log(dados)
 
-    id = `${dados.id}`;
-    name = `${dados.name}`;
-    cpf = `${dados.cpf}`;
-    email = `${dados.email}`;
-    idade = `${dados.idade}`;
-}
-
-ImprimirDadosDoUsuárioApósLogar();
 
 
 function ImprimirDadosDoUsuárioEmTabela(data){
@@ -117,7 +136,5 @@ function AdmCriaUmNovoUsuário(){
     console.log('willian')
 }
 
-function RetornaDadosComoPromessa(){
-    return axios.get('https://growdev-api-transactions.herokuapp.com/users');
-}
+
 
