@@ -14,6 +14,5 @@ $('nav .aHref').on('click', function(e){
 			targetOffset = $(id).offset().top;
 	$('html, body').animate({
 		scrollTop: targetOffset - menuHeight
-	}, 500);
+	}, 800);
 });
-

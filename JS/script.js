@@ -4,11 +4,6 @@ window.addEventListener('load', () => {
     .then(response => {
         ImprimirDadosDoUsuárioEmTabela(response.data.data);
     });
-
-    axios.get('https://growdev-api-transactions.herokuapp.com/users')
-    .then(response => {
-        EncontrarID(response.data.data);
-    });
 });
 
 function AbrirEmOutraURL(href){
@@ -47,13 +42,52 @@ function mostrarUsuarioNãoEncontrado(){
     myModal.show();
 }
 
+
+function validarUserIDParaLogin(){
+    let UserID = document.getElementById('UserId').value;
+    if(UserID === ''){
+        mostrarUsuarioNãoEncontrado();
+    }
+}
+
 function logarComID(){
-    const UserID = document.getElementById('UserId').value;
+    let UserID = document.getElementById('UserId').value;
+    validarUserIDParaLogin();
 
     const logar = axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}`);
+
     logar.catch(() => mostrarUsuarioNãoEncontrado());
-    logar.then(() => AbrirEmOutraURL('usuarioPag.html'))
+    logar.then(() => AbrirEmOutraURL('usuarioPag.html'));
 }
+
+function modalComIDinf(){
+    var myModal = new bootstrap.Modal(document.getElementById('modalIDinf'), {});
+    myModal.show();
+}
+
+
+function ImprimirDadosDoUsuárioApósLogar(){
+
+    const id = document.getElementById('idDoUsuario');
+    const name = document.getElementById('userNAME');
+    const cpf = document.getElementById('userCPF');
+    const email = document.getElementById('userEMAIL');
+    const idade = document.getElementById('userAGE');
+
+    const dados = axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}`).then((response) => {
+        return response.data.data
+    });
+
+    console.log(dados)
+
+    id = `${dados.id}`;
+    name = `${dados.name}`;
+    cpf = `${dados.cpf}`;
+    email = `${dados.email}`;
+    idade = `${dados.idade}`;
+}
+
+ImprimirDadosDoUsuárioApósLogar();
 
 
 function ImprimirDadosDoUsuárioEmTabela(data){
@@ -86,5 +120,4 @@ function AdmCriaUmNovoUsuário(){
 function RetornaDadosComoPromessa(){
     return axios.get('https://growdev-api-transactions.herokuapp.com/users');
 }
-
 
