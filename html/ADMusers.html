@@ -10,21 +10,23 @@
     src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="../css/layout.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
     <script src="../JS/script.js"></script>
 </head>
 <body>
     <nav>
         <img class="white-logo" src="../assets/logowill-transparente.svg" alt="">
-        
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="transfer.html">Tranferências</a></li>
+            <li><a href="ADMtranfer.html">Tranferências</a></li>
+            <li><span onclick="LogoutADMpage()" class="material-icons md-36">logout</span></li>
         </ul>
     </nav>
     <main>
         <section class="bg-img-lisUser"></section>
         <section class="container usersContent">
-            <input type="button" class="btn" value="INCLUIR USUÁRIO" onclick='AdmCriaUmNovoUsuário()'>
+            <input type="button" class="btn" value="INCLUIR USUÁRIO" onclick='AbrirModalParaCriarUsuario()'>
 
             <table class="table table-striped">
                 <thead class="table-dark">
@@ -44,6 +46,127 @@
             </table>
         </section>
     </main>
+
+    <div class="modal fade" id="ADMCriaNovoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CRIAR NOVO USUÁRIO</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="label-float">
+                <input type="text" name="ADMemail" id="ADMemail" placeholder=" ">
+                <label>Email</label>
+            </div>
+            <div class="label-float">
+                <input type="text" name="ADMcpf" id="ADMcpf" placeholder=" ">
+                <label>CPF</label>
+            </div>
+            <div class="label-float">
+                <input type="text" name="ADMname" id="ADMname" placeholder=" ">
+                <label>Nome</label>
+            </div>
+            <div class="label-float">
+                <input type="number" name="ADMage" id="ADMage" placeholder=" ">
+                <label>Idade</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn" value="Criar Conta" data-bs-dismiss="modal" onclick="ADMCriarUmNovoUsuario()">
+            <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+
+    
+  <div class="modal fade" id="ADMSuccess" tabindex="-1" aria-labelledby="modalSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSuccessLabel">Parabéns</h5>
+        </div>
+        <div class="modal-body">
+          Sua conta foi registrada com sucesso.
+          <small id="MostrarID"></small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id='ADMSuccess' class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalErrorAoCriarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Insira todos os dados</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Verifique se todos os dados foram inseridos de forma correta.
+          <small class="text-muted">OBS.: O CPF não deve conter caracteres especiais</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalUsuarioJáExiste" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Erro ao criar sua conta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Este usuário já existe.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="ADMModificarNovoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ATUALIZAR DADOS DO USUÁRIO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="label-float">
+            <input type="text" name="ADMemailATT" id="ADMemailATT" placeholder=" ">
+            <label>Email</label>
+        </div>
+        <div class="label-float">
+            <input type="text" name="ADMcpfATT" id="ADMcpfATT" placeholder=" ">
+            <label>CPF</label>
+        </div>
+        <div class="label-float">
+            <input type="text" name="ADMnameATT" id="ADMnameATT" placeholder=" ">
+            <label>Nome</label>
+        </div>
+        <div class="label-float">
+            <input type="number" name="ADMageATT" id="ADMageATT" placeholder=" ">
+            <label>Idade</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn" value="Atualizar Dados" data-bs-dismiss="modal" onclick="AtualizarDadosDoUsuario()">
+        <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+    </div>
+    </div>
+    </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../JS/jquery-3.1.1.min.js"></script>

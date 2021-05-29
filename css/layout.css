@@ -419,6 +419,10 @@ nav ul li span:hover {
     transition: 1s;
 }
 
+nav.navRoll ul li span {
+    margin-top: 15px;
+    margin-right: 10px;
+}
 
 span.purple {
     color: #8a05be;
