@@ -26,14 +26,23 @@ function mostrarModalDeErroAoCriarusuario(){
 }
 
 
-function mostrarModalSuccess(){
+async function mostrarModalSuccess(){
     var myModal = new bootstrap.Modal(document.getElementById('Success'), {});
     myModal.show();
+
+    const data =  await axios.get('https://growdev-api-transactions.herokuapp.com/users')
+    .then(response => {
+        return (response.data.data);
+    });
+
+    document.getElementById('MostrarID').innerHTML = data[data.length -1].id;
+
 
     document.getElementById('btnModalContaCriada').addEventListener('click', function(){
         AbrirEmOutraURL('index.html');
     });
 }
+
 
 
 function CriarUmNovoUsuario(){
@@ -105,29 +114,52 @@ function modalComIDinf(){
     myModal.show();
 }
 
+//Abre modal ao carregar pagina de usuario
+function AbrirModalVerifyUser() {
+    var myModal = new bootstrap.Modal(document.getElementById('modal2StefVerify'), {});
+    myModal.show();
+}
+
+function TwoStepVerifyModal(){
+    var myModal = new bootstrap.Modal(document.getElementById('modal2StefVerify'), {});
+    myModal.show();
+}
+
 // Adiciona dados do usuario ao carregar a pagina do usuario
-// function Imprimirdados () {
-//     const user = InformaçõesDosUsuarios.find((f) => {
-//         return f.id === UserID
-//     });
+function VerificarUsuarioEMostrarInformações() {
+    const UserID = document.getElementById('2StepId').value;
 
-//     const id = document.getElementById('idDoUsuario');
-//     const name = document.getElementById('userNAME');
-//     const cpf = document.getElementById('userCPF');
-//     const email = document.getElementById('userEMAIL');
-//     const idade = document.getElementById('userAGE');
+    const user = InformaçõesDosUsuarios.find((f) => {
+        return f.id === UserID
+    });
+
+    if(!user){
+        TwoStepVerifyModal();
+        document.getElementById('labelVerificarUsuario').classList.add('label-red');
+        document.getElementById('labelVerificarUsuario').innerHTML = '*Insira um ID válido';
+        setTimeout(() => {
+            document.getElementById('labelVerificarUsuario').innerHTML = 'Insira o ID';
+            document.getElementById('labelVerificarUsuario').classList.remove('label-red');
+        }, 2000)
+    }
+
+    const id = document.getElementById('idDoUsuario');
+    const name = document.getElementById('userNAME');
+    const cpf = document.getElementById('userCPF');
+    const email = document.getElementById('userEMAIL');
+    const idade = document.getElementById('userAGE');
         
-//     id.innerHTML = `${user.id}`;
-//     name.innerHTML = `${user.name}`;
-//     cpf.innerHTML = `${user.cpf}`;
-//     email.innerHTML = `${user.email}`;
-//     idade.innerHTML = `${user.age}`;
-// }
+    id.innerHTML = `${user.id}`;
+    name.innerHTML = `${user.name}`;
+    cpf.innerHTML = `${user.cpf}`;
+    email.innerHTML = `${user.email}`;
+    idade.innerHTML = `${user.age}`;
+}
 
 
-// document.getElementById('logoutUserPage').addEventListener('click', () => {
-
-// });
+document.getElementById('logoutUserPage').addEventListener('click', () => {
+    AbrirEmOutraURL('index.html')
+});
 
 function ImprimirDadosDoUsuárioEmTabela(data){
     const dados = document.getElementById('tableBody');
@@ -149,6 +181,7 @@ function ImprimirDadosDoUsuárioEmTabela(data){
             </tr>
         `;
         i++
+        indice++
     });
 
     dados.innerHTML = newContent;
@@ -191,31 +224,30 @@ function mostrarModalADMCriarUsuario(){
     myModal.show();
 }
 
+// let Usuario = undefined;
 
-async function editarUsuario(indice){
-    const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
-    .then(response => {
-        return (response.data.data);
-    });
+// function editarUsuario(indice){
+//     ModalAtualizarDadosUsuario();
 
-    ModalAtualizarDadosUsuario();
-
-    const objetoSelected = data[indice];
-
-    //pq ta chamando a função aqui e ela ta sendo executada
-    AtualizarDadosDoUsuario(objetoSelected);
-}
-
-// TA DANDO ERRO PQ TA INDO ANTES OS DADOS
-function AtualizarDadosDoUsuario(data){
-    const ADMemail = document.getElementById('ADMemailATT').value = data.email;
-    const ADMname = document.getElementById('ADMnameATT').value = data.name;
-    const ADMcpf = document.getElementById('ADMcpfATT').value = data.cpf;
-    const ADMage = document.getElementById('ADMageATT').value = data.age;
+//     Usuario = indice;
+// }
 
 
-    axios.put(`https://growdev-api-transactions.herokuapp.com/users/${data.id}`, {name: ADMname, email: ADMemail, cpf: ADMcpf, age: ADMage});
-}
+// // TA DANDO ERRO PQ TA INDO ANTES OS DADOS
+// async function AtualizarDadosDoUsuario(){
+    // const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
+    // .then(response => {
+    //     return (response.data.data);
+    // });
+
+//     const ADMemail = document.getElementById('ADMemailATT').value;
+//     const ADMname = document.getElementById('ADMnameATT').value;
+//     const ADMcpf = document.getElementById('ADMcpfATT').value;
+//     const ADMage = document.getElementById('ADMageATT').value;
+
+
+//     axios.put(`https://growdev-api-transactions.herokuapp.com/users/${data.id}`, {name: ADMname, email: ADMemail, cpf: ADMcpf, age: ADMage});
+// }
 
 async function excluirUsuario(indice){
     const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
@@ -225,7 +257,7 @@ async function excluirUsuario(indice){
 
     const objetoSelected = data[indice];
 
-    axios.delete(`https://growdev-api-transactions.herokuapp.com/users/${objetoSelected.id}`)
+    axios.delete(`https://growdev-api-transactions.herokuapp.com/users/${objetoSelected.id}`);
 }
 
 function ModalAtualizarDadosUsuario() {

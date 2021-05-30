@@ -424,6 +424,16 @@ nav.navRoll ul li span {
     margin-right: 10px;
 }
 
+button.BTNVERIFYUSER {
+    position: absolute;
+    top: 100px;
+    right: 70px;
+}
+
+.label-red {
+    color: red;
+}
+
 span.purple {
     color: #8a05be;
 }

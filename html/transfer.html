@@ -10,42 +10,68 @@
     src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="../css/layout.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
     <script src="../JS/script.js"></script>
 </head>
 <body>
     <nav>
-        <img class="white-logo" src="assets/logowill-transparente.svg" alt="">
+        <img class="white-logo" src="../assets/logowill-transparente.svg" alt="">
         
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="users.html">Usuários</a></li>
-            <li><a href="transfer.html">Tranferências</a></li>
+            <li><a href="usuarioPag.html">Usuário</a></li>
+            <li><span onclick="LogoutADMpage()" class="material-icons md-36">logout</span></li>
         </ul>
     </nav>
     <main>
         <section class="bg-img-lisUser"></section>
         <section class="container usersContent">
-            <input type="button" class="btn" value="INCLUIR USUÁRIO" onclick='AdmCriaUmNovoUsuário()'>
+            <input type="button" class="btn" value="VERIFICAR USUÁRIO" onclick='AbrirModalParaSelecionarUsuario()'>
 
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
-                        <th>NOME</th>
-                        <th>IDADE</th>
-                        <th>EMAIL</th>
-                        <th>CPF</th>
-                        <th>EDITAR</th>
-                        <th>EXCLUIR</th>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Valor</th>
+                        <th>Modelo</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody id="tableBodyTranferencias">
 
                 </tbody>
+                <tfoot id="tableFooterTranferencias">
+
+                </tfoot>
             </table>
         </section>
     </main>
 
+    <div class="modal fade" id="modalOnloadTranfer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Digite o ID do usuário</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="label-float">
+                <input type="text" name="ADMid" id="ADMid" placeholder=" ">
+                <label>Insira o ID</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal" onclick="BuscarTranferenciasDoUsuario()">Verificar</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../JS/jquery-3.1.1.min.js"></script>
     <script src="../JS/animações.js"></script>
 </body>
 </html>

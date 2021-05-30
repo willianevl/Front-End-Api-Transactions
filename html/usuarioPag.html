@@ -15,7 +15,7 @@
 </head>
 <body>
     <nav class="nav-USERPAGE">
-        <p id='idDoUsuario' class="idDoUsuario" onclick="modalComIDinf()">49583053-354f-4047-afdb-772dc251a1fe</p>
+        <p id='idDoUsuario' class="idDoUsuario" onclick="modalComIDinf()">undefined</p>
 
         <ul>
             <li><a href="transfer.html">Tranferências</a></li>
@@ -24,23 +24,26 @@
     </nav>
 
     <main>
+        <button class="btn BTNVERIFYUSER" onclick="AbrirModalVerifyUser()">VERIFICAR USUÁRIO</button>
+
         <div class="content-userPage">
+
             <figure>
                 <img src="../assets/user.png" alt="">
             </figure>
     
             <div class="inf">
                 <label for="userNAME">NOME:</label>
-                <p id="userNAME">Willian Evaldt Guimarães</p> 
+                <p id="userNAME">undefined</p> 
                
                 <label for="useEMAIL">EMAIL:</label>
-                <p id="userEMAIL">willianevaldt@gmail.com</p>
+                <p id="userEMAIL">undefined</p>
 
                 <label for="userCPF">CPF:</label>
-                <p id="userCPF">02862007080</p>
+                <p id="userCPF">undefined</p>
 
                 <label for="userAGE">AGE:</label>
-                <p id="userAGE">18</p>
+                <p id="userAGE">undefined</p>
             </div>
         </div>
     </main>
@@ -56,6 +59,27 @@
             O ID será seu método de acesso. Tome cuidado para não o perder.
         </div>
         <div class="modal-footer">
+            <button type="button" id="btnAgain" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal2StefVerify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informe seu ID novamente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="label-float">
+                <input type="text" name="2StepId" id="2StepId" placeholder=" ">
+                <label id="labelVerificarUsuario">Insira o ID</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" onclick="VerificarUsuarioEMostrarInformações()" data-bs-dismiss="modal">Verificar</button>
             <button type="button" id="btnAgain" class="btn" data-bs-dismiss="modal">Fechar</button>
         </div>
         </div>
