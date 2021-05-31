@@ -111,7 +111,25 @@
           <small class="text-muted">OBS.: O CPF não deve conter caracteres especiais</small>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalErrorAoATTUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Insira todos os dados</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Verifique se todos os dados foram inseridos de forma correta.
+          <small class="text-muted">OBS.: O CPF não deve conter caracteres especiais</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" id="AbrirModalATTUser"  data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
@@ -128,7 +146,7 @@
           Este usuário já existe.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
@@ -167,6 +185,23 @@
     </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalVerificarSeQuerExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Informe seu ID novamente</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+      <p id="textExcluirUsuario"></p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn" onclick="VerificarExcluirUsuario()" data-bs-dismiss="modal">Sim</button>
+      <button type="button" id="btnAgain" class="btn" data-bs-dismiss="modal">Cancelar</button>
+  </div>
+  </div>
+  </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../JS/jquery-3.1.1.min.js"></script>

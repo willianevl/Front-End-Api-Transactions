@@ -19,13 +19,11 @@
 
         <ul>
             <li><a href="transfer.html">Tranferências</a></li>
-            <li><span id='logoutUserPage' class="material-icons md-36">logout</span></li>
+            <li><span onclick="LogoutUser()" class="material-icons md-36">logout</span></li>
         </ul>
     </nav>
 
     <main>
-        <button class="btn BTNVERIFYUSER" onclick="AbrirModalVerifyUser()">VERIFICAR USUÁRIO</button>
-
         <div class="content-userPage">
 
             <figure>
@@ -65,26 +63,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal2StefVerify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Informe seu ID novamente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="label-float">
-                <input type="text" name="2StepId" id="2StepId" placeholder=" ">
-                <label id="labelVerificarUsuario">Insira o ID</label>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn" onclick="VerificarUsuarioEMostrarInformações()" data-bs-dismiss="modal">Verificar</button>
-            <button type="button" id="btnAgain" class="btn" data-bs-dismiss="modal">Fechar</button>
-        </div>
-        </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="../JS/script.js"></script>

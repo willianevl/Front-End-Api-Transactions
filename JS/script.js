@@ -11,6 +11,9 @@ window.addEventListener('load', () => {
             InformaçõesDosUsuarios.push(userInf);
         });
     });
+
+    //linha 295; Função imprime todas as transações do usuario onload
+    ATTInfTranferenciasDoUsuario();
 });
 
 const InformaçõesDosUsuarios = [];
@@ -86,7 +89,7 @@ function validarUserIDParaLogin(){
     }
 }
 
-function logarEImprimirDadosNaTelaDoUsuario(){
+function logarTelaDoUsuario(){
     let UserID = document.getElementById('UserId').value;
     const admID = '53f47ca2-8d5e-44d6-9c56-0ba3e3720ec8';
 
@@ -108,6 +111,9 @@ function logarEImprimirDadosNaTelaDoUsuario(){
            AbrirEmOutraURL('usuarioPag.html') 
         }
     });
+
+    const userInf = JSON.stringify(user);
+    localStorage.setItem('UsuarioInf', userInf);
 }
 
 function modalComIDinf(){
@@ -115,34 +121,10 @@ function modalComIDinf(){
     myModal.show();
 }
 
-//Abre modal ao carregar pagina de usuario
-function AbrirModalVerifyUser() {
-    var myModal = new bootstrap.Modal(document.getElementById('modal2StefVerify'), {});
-    myModal.show();
-}
-
-function TwoStepVerifyModal(){
-    var myModal = new bootstrap.Modal(document.getElementById('modal2StefVerify'), {});
-    myModal.show();
-}
-
-// Adiciona dados do usuario ao carregar a pagina do usuario
-function VerificarUsuarioEMostrarInformações() {
-    const UserID = document.getElementById('2StepId').value;
-
-    const user = InformaçõesDosUsuarios.find((f) => {
-        return f.id === UserID
-    });
-
-    if(!user){
-        TwoStepVerifyModal();
-        document.getElementById('labelVerificarUsuario').classList.add('label-red');
-        document.getElementById('labelVerificarUsuario').innerHTML = '*Insira um ID válido';
-        setTimeout(() => {
-            document.getElementById('labelVerificarUsuario').innerHTML = 'Insira o ID';
-            document.getElementById('labelVerificarUsuario').classList.remove('label-red');
-        }, 2000)
-    }
+// Adiciona dados do usuario ao carrega a pagina do usuario com seus dados
+window.addEventListener('load', () => {
+    const recuperar = localStorage.getItem('UsuarioInf');
+    const user = JSON.parse(recuperar);
 
     const id = document.getElementById('idDoUsuario');
     const name = document.getElementById('userNAME');
@@ -155,128 +137,16 @@ function VerificarUsuarioEMostrarInformações() {
     cpf.innerHTML = `${user.cpf}`;
     email.innerHTML = `${user.email}`;
     idade.innerHTML = `${user.age}`;
-}
-
-
-document.getElementById('logoutUserPage').addEventListener('click', () => {
-    AbrirEmOutraURL('index.html')
 });
 
-function ImprimirDadosDoUsuárioEmTabela(data){
-    const dados = document.getElementById('tableBody');
-    
-    let i = 1;
-    let newContent = "";
-    let indice = 0;
+async function ATTInfTranferenciasDoUsuario(data){
+    const recuperar = localStorage.getItem('UsuarioInf');
+    const user = JSON.parse(recuperar);
 
-    data.forEach((user) => {
-        newContent += `
-            <tr>
-                <td>${i}</td>
-                <td>${user.name}</td>
-                <td>${user.age}</td>
-                <td>${user.email}</td>
-                <td>${user.cpf}</td>
-                <td><button class='table-btn-editar' onclick='editarUsuario(${indice})'>Editar</button></td>
-                <td><button class='table-btn-excluir' onclick='excluirUsuario(${indice})'>Excluir</button></td>
-            </tr>
-        `;
-        i++
-        indice++
-    });
-
-    dados.innerHTML = newContent;
-}
-
-
-function AbrirModalParaCriarUsuario(){
-    mostrarModalADMCriarUsuario();
-}
-
-function ADMCriarUmNovoUsuario(){
-    const ADMemail = document.getElementById('ADMemail').value;
-    const ADMname = document.getElementById('ADMname').value;
-    const ADMcpf = document.getElementById('ADMcpf').value;
-    const ADMage = document.getElementById('ADMage').value;
-    
-    const NewUserByADM = axios.post('https://growdev-api-transactions.herokuapp.com/users', {name: ADMname, cpf: ADMcpf, email: ADMemail, age: ADMage})
-
-    const UsuarioJáExiste = InformaçõesDosUsuarios.find((f) => {
-        return f.cpf === ADMcpf
-    });
-
-    if(UsuarioJáExiste){
-        return mostrarModalUsuarioJáExiste();
-    }
-    
-    NewUserByADM.catch(() => mostrarModalDeErroAoCriarusuario());
-    NewUserByADM.then(() =>  mostrarModalSuccessADM());
-}
-
-function mostrarModalSuccessADM(){
-    var myModal = new bootstrap.Modal(document.getElementById('ADMSuccess'), {});
-    myModal.show();
-
-    document.getElementById('ADMSuccess').addEventListener('click', () => AbrirEmOutraURL('ADMusers.html'));
-}
-
-function mostrarModalADMCriarUsuario(){
-    var myModal = new bootstrap.Modal(document.getElementById('ADMCriaNovoUsuario'), {});
-    myModal.show();
-}
-
-// let Usuario = undefined;
-
-// function editarUsuario(indice){
-//     ModalAtualizarDadosUsuario();
-
-//     Usuario = indice;
-// }
-
-
-// // TA DANDO ERRO PQ TA INDO ANTES OS DADOS
-// async function AtualizarDadosDoUsuario(){
-    // const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
-    // .then(response => {
-    //     return (response.data.data);
-    // });
-
-//     const ADMemail = document.getElementById('ADMemailATT').value;
-//     const ADMname = document.getElementById('ADMnameATT').value;
-//     const ADMcpf = document.getElementById('ADMcpfATT').value;
-//     const ADMage = document.getElementById('ADMageATT').value;
-
-
-//     axios.put(`https://growdev-api-transactions.herokuapp.com/users/${data.id}`, {name: ADMname, email: ADMemail, cpf: ADMcpf, age: ADMage});
-// }
-
-async function excluirUsuario(indice){
-    const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
-    .then(response => {
-        return (response.data.data);
-    });
-
-    const objetoSelected = data[indice];
-
-    axios.delete(`https://growdev-api-transactions.herokuapp.com/users/${objetoSelected.id}`);
-}
-
-function ModalAtualizarDadosUsuario() {
-    var myModal = new bootstrap.Modal(document.getElementById('ADMModificarNovoUsuario'), {});
-    myModal.show();
-}
-
-function AbrirModalParaSelecionarUsuario() {
-    var myModal = new bootstrap.Modal(document.getElementById('modalOnloadTranfer'), {});
-    myModal.show();
-}
-
-async function BuscarTranferenciasDoUsuario(data){
-    const UserID = document.getElementById('ADMid').value;
     const dados = document.getElementById('tableBodyTranferencias');
     const totais = document.getElementById('tableFooterTranferencias');
 
-    const transactions = await axios.get(`https://growdev-api-transactions.herokuapp.com/users/${data || UserID}/transactions`).then((response) => response.data)
+    const transactions = await axios.get(`https://growdev-api-transactions.herokuapp.com/users/${data || user.id}/transactions`).then((response) => response.data)
 
     let i = 1;
     (transactions.transactions).forEach((transf) => {
@@ -328,7 +198,7 @@ async function CriarNovaTransação(){
 
         
         document.getElementById('TransferCriada').addEventListener('click', () => {
-            BuscarTranferenciasDoUsuario(user.id);
+            ATTInfTranferenciasDoUsuario(user.id)
         });
     });
 
@@ -341,6 +211,160 @@ function AbrirModalSucessoAoCriarTranferência(user){
 
 function AbrirModalFalhaAoCriarTranferência(){
     var myModal = new bootstrap.Modal(document.getElementById('modalFailTranfer'), {});
+    myModal.show();
+}
+
+// Remove os dados do usuario do local storage
+function LogoutUser(){
+    localStorage.removeItem('UsuarioInf');
+    return AbrirEmOutraURL('index.html');
+}
+
+function ImprimirDadosDoUsuárioEmTabela(data){
+    const dados = document.getElementById('tableBody');
+    
+    let i = 1;
+    let newContent = "";
+    let indice = 0;
+
+    data.forEach((user) => {
+        newContent += `
+            <tr>
+                <td>${i}</td>
+                <td>${user.name}</td>
+                <td>${user.age}</td>
+                <td>${user.email}</td>
+                <td>${user.cpf}</td>
+                <td><button class='table-btn-editar' onclick='editarUsuario(${indice})'>Editar</button></td>
+                <td><button class='table-btn-excluir' onclick='excluirUsuario(${indice})'>Excluir</button></td>
+            </tr>
+        `;
+        i++
+        indice++
+    });
+
+    dados.innerHTML = newContent;
+}
+
+
+function AbrirModalParaCriarUsuario(){
+    mostrarModalADMCriarUsuario();
+}
+
+function ADMCriarUmNovoUsuario(){
+    const ADMemail = document.getElementById('ADMemail').value;
+    const ADMname = document.getElementById('ADMname').value;
+    const ADMcpf = document.getElementById('ADMcpf').value;
+    const ADMage = document.getElementById('ADMage').value;
+    
+    const NewUserByADM = axios.post('https://growdev-api-transactions.herokuapp.com/users', {name: ADMname, cpf: ADMcpf, email: ADMemail, age: ADMage})
+
+    const UsuarioJáExiste = InformaçõesDosUsuarios.find((f) => {
+        return f.cpf === ADMcpf
+    });
+
+    if(UsuarioJáExiste){
+        return mostrarModalUsuarioJáExiste();
+    }
+    
+    NewUserByADM.catch(() => mostrarModalDeErroAoCriarusuario());
+    NewUserByADM.then(() =>  mostrarModalSuccessADM() && AbrirEmOutraURL('ADMusers.html'));
+}
+
+function mostrarModalSuccessADM(){
+    var myModal = new bootstrap.Modal(document.getElementById('ADMSuccess'), {});
+    myModal.show();
+
+    document.getElementById('ADMSuccess').addEventListener('click', () => AbrirEmOutraURL('ADMusers.html'));
+}
+
+function mostrarModalADMCriarUsuario(){
+    var myModal = new bootstrap.Modal(document.getElementById('ADMCriaNovoUsuario'), {});
+    myModal.show();
+}
+
+async function editarUsuario(indice){
+    ModalAtualizarDadosUsuario();
+
+    const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
+    .then(response => {
+        return (response.data.data);
+    });
+
+    const ObjetoSelecionado = data[indice].id;
+
+    document.getElementById('ADMemailATT').value = ObjetoSelecionado.email;
+    document.getElementById('ADMnameATT').value = ObjetoSelecionado.name;
+    document.getElementById('ADMcpfATT').value = ObjetoSelecionado.cpf;
+    document.getElementById('ADMageATT').value = ObjetoSelecionado.age;
+
+    const valor = JSON.stringify(ObjetoSelecionado);
+    localStorage.setItem('UsuarioEditar', valor);
+}
+
+async function AtualizarDadosDoUsuario(){
+    const ADMemail = document.getElementById('ADMemailATT').value;
+    const ADMname = document.getElementById('ADMnameATT').value;
+    const ADMcpf = document.getElementById('ADMcpfATT').value;
+    const ADMage = document.getElementById('ADMageATT').value;
+
+    const recuperar = localStorage.getItem('UsuarioEditar');
+    const user = JSON.parse(recuperar);
+
+    const ATT = axios.put(`https://growdev-api-transactions.herokuapp.com/users/${user.id}`, {name: ADMname, email: ADMemail, cpf: ADMcpf, age: ADMage});
+
+    ATT.catch(() => modalErrorAoATTUsuario());
+    ATT.then(() => {
+        AbrirEmOutraURL('ADMusers.html')
+    });
+}
+
+function modalErrorAoATTUsuario(){
+    var myModal = new bootstrap.Modal(document.getElementById('modalErrorAoATTUsuario'), {});
+    myModal.show();
+
+    document.getElementById('AbrirModalATTUser').addEventListener('click', () => [
+        ModalAtualizarDadosUsuario()
+    ]);
+}
+
+function ModalAtualizarDadosUsuario() {
+    var myModal = new bootstrap.Modal(document.getElementById('ADMModificarNovoUsuario'), {});
+    myModal.show();
+}
+
+async function excluirUsuario(indice){
+    const data = await axios.get('https://growdev-api-transactions.herokuapp.com/users')
+    .then(response => {
+        return (response.data.data);
+    });
+
+    const ObjetoSelecionado = data[indice].id;
+
+    const user = JSON.stringify(ObjetoSelecionado);
+    localStorage.setItem('UsuarioExcluir', user);
+
+    document.getElementById('textExcluirUsuario').innerHTML = `Você deseja excluir o usuário: ${data[indice].name}, cpf: ${data[indice].cpf}?`;
+
+    AbrirModalParaExcluirUsuario();
+}
+
+async function VerificarExcluirUsuario(){
+    const recuperar = localStorage.getItem('UsuarioExcluir');
+    const user = JSON.parse(recuperar);
+
+   await axios.delete(`https://growdev-api-transactions.herokuapp.com/users/${user}`);
+
+    AbrirEmOutraURL('ADMusers.html');
+}
+
+function AbrirModalParaExcluirUsuario() {
+    var myModal = new bootstrap.Modal(document.getElementById('modalVerificarSeQuerExcluir'), {});
+    myModal.show();
+}
+
+function AbrirModalParaSelecionarUsuario() {
+    var myModal = new bootstrap.Modal(document.getElementById('modalOnloadTranfer'), {});
     myModal.show();
 }
 

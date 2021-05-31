@@ -21,14 +21,13 @@
         
         <ul>
             <li><a href="usuarioPag.html">Usuário</a></li>
-            <li><span onclick="LogoutADMpage()" class="material-icons md-36">logout</span></li>
+            <li><span onclick="LogoutUser()" class="material-icons md-36">logout</span></li>
         </ul>
     </nav>
     <main>
         <section class="bg-img-lisUser"></section>
         <section class="container usersContent">
             <div>
-                <input type="button" class="btn" value="VERIFICAR TRANSAÇÕES" onclick='AbrirModalParaSelecionarUsuario()'>
                 <input type="button" class="btn" value="FAZER TRANSAÇÃO" onclick='AbrirModalParaFazerTransação()'>
             </div>
 
@@ -51,27 +50,6 @@
             </table>
         </section>
     </main>
-
-    <div class="modal fade" id="modalOnloadTranfer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Digite o ID do usuário</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="label-float">
-                <input type="text" name="ADMid" id="ADMid" placeholder=" ">
-                <label>Insira o ID</label>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-bs-dismiss="modal" onclick="BuscarTranferenciasDoUsuario()">Verificar</button>
-            <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
-        </div>
-        </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="modalCriarTransação" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
