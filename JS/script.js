@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
         });
     });
 
-    //linha 295; Função imprime todas as transações do usuario onload
+    // linha 141. Atualiza as tranferencias do usuario
     ATTInfTranferenciasDoUsuario();
 });
 
@@ -139,14 +139,14 @@ window.addEventListener('load', () => {
     idade.innerHTML = `${user.age}`;
 });
 
-async function ATTInfTranferenciasDoUsuario(data){
+async function ATTInfTranferenciasDoUsuario(){
     const recuperar = localStorage.getItem('UsuarioInf');
     const user = JSON.parse(recuperar);
 
     const dados = document.getElementById('tableBodyTranferencias');
     const totais = document.getElementById('tableFooterTranferencias');
 
-    const transactions = await axios.get(`https://growdev-api-transactions.herokuapp.com/users/${data || user.id}/transactions`).then((response) => response.data)
+    const transactions = await axios.get(`https://growdev-api-transactions.herokuapp.com/users/${user.id}/transactions`).then((response) => response.data)
 
     let i = 1;
     (transactions.transactions).forEach((transf) => {
@@ -178,14 +178,11 @@ function AbrirModalParaFazerTransação() {
 }
 
 async function CriarNovaTransação(){
-    const UsuarioID = document.getElementById('TranferIDdoUsuario').value;
+    const recuperar = localStorage.getItem('UsuarioInf');
+    const user = JSON.parse(recuperar);
 
-    const Usuarios = await axios.get(`https://growdev-api-transactions.herokuapp.com/users`).then((response) => response.data.data);
+    const UsuarioID = document.getElementById('TranferIDdoUsuario').value = user.id;
 
-    const user = Usuarios.find((f) => {
-        return f.id === UsuarioID
-    })
-    
     const NomeDaTransação = document.getElementById('NomeDaTransação').value;
     const ModeloDaTransação = document.getElementById('ModeloDaTransação').value;
     const ValorDaTransação = document.getElementById('ValorDaTransação').value;
@@ -194,11 +191,12 @@ async function CriarNovaTransação(){
 
     NewTransaction.catch(() => AbrirModalFalhaAoCriarTranferência());
     NewTransaction.then(() => {
+        document.getElementById('TransaçãoSucesso').innerHTML = `A transação ${NomeDaTransação} com o modelo ${ModeloDaTransação} e o valor de R$${parseInt(ValorDaTransação)} foi realizada com sucesso.`
         AbrirModalSucessoAoCriarTranferência();
 
         
         document.getElementById('TransferCriada').addEventListener('click', () => {
-            ATTInfTranferenciasDoUsuario(user.id)
+            AbrirEmOutraURL('transfer.html')
         });
     });
 
