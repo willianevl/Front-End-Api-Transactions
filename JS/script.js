@@ -35,6 +35,7 @@ async function mostrarModalSuccess(){
         return (response.data.data);
     });
 
+    document.getElementById('mensagemUsuario').innerHTML = `Olá, ${data[data.length -1].name}. Seja bem vindo(a), assegure-se de não perder o ID, ele será seu método de acesso.`
     document.getElementById('MostrarID').innerHTML = data[data.length -1].id;
 
 
@@ -270,15 +271,15 @@ function AbrirModalParaSelecionarUsuario() {
     myModal.show();
 }
 
-async function BuscarTranferenciasDoUsuario(){
+async function BuscarTranferenciasDoUsuario(data){
     const UserID = document.getElementById('ADMid').value;
     const dados = document.getElementById('tableBodyTranferencias');
     const totais = document.getElementById('tableFooterTranferencias');
 
-    const transactions = await axios.get(`https://growdev-api-transactions.herokuapp.com/users/${UserID}/transactions`).then((response) => response.data)
+    const transactions = await axios.get(`https://growdev-api-transactions.herokuapp.com/users/${data || UserID}/transactions`).then((response) => response.data)
 
     let i = 1;
-    (transactions.transaction).forEach((transf) => {
+    (transactions.transactions).forEach((transf) => {
         dados.innerHTML += `
             <tr>
                 <td>${i}</td>
@@ -300,6 +301,49 @@ async function BuscarTranferenciasDoUsuario(){
         </tr>
     `
 }
+
+function AbrirModalParaFazerTransação() {
+    var myModal = new bootstrap.Modal(document.getElementById('modalCriarTransação'), {});
+    myModal.show();
+}
+
+async function CriarNovaTransação(){
+    const UsuarioID = document.getElementById('TranferIDdoUsuario').value;
+
+    const Usuarios = await axios.get(`https://growdev-api-transactions.herokuapp.com/users`).then((response) => response.data.data);
+
+    const user = Usuarios.find((f) => {
+        return f.id === UsuarioID
+    })
+    
+    const NomeDaTransação = document.getElementById('NomeDaTransação').value;
+    const ModeloDaTransação = document.getElementById('ModeloDaTransação').value;
+    const ValorDaTransação = document.getElementById('ValorDaTransação').value;
+
+    const NewTransaction = axios.post(`https://growdev-api-transactions.herokuapp.com/user/${UsuarioID}/transactions`, { title: NomeDaTransação, value: parseInt(ValorDaTransação), type: ModeloDaTransação});
+
+    NewTransaction.catch(() => AbrirModalFalhaAoCriarTranferência());
+    NewTransaction.then(() => {
+        AbrirModalSucessoAoCriarTranferência();
+
+        
+        document.getElementById('TransferCriada').addEventListener('click', () => {
+            BuscarTranferenciasDoUsuario(user.id);
+        });
+    });
+
+}
+
+function AbrirModalSucessoAoCriarTranferência(user){
+    var myModal = new bootstrap.Modal(document.getElementById('modalSuccessTranfer'), {});
+    myModal.show();
+}
+
+function AbrirModalFalhaAoCriarTranferência(){
+    var myModal = new bootstrap.Modal(document.getElementById('modalFailTranfer'), {});
+    myModal.show();
+}
+
 
 function LogoutADMpage(){
     AbrirEmOutraURL('index.html')

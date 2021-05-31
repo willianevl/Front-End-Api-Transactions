@@ -27,7 +27,10 @@
     <main>
         <section class="bg-img-lisUser"></section>
         <section class="container usersContent">
-            <input type="button" class="btn" value="VERIFICAR USUÁRIO" onclick='AbrirModalParaSelecionarUsuario()'>
+            <div>
+                <input type="button" class="btn" value="VERIFICAR TRANSAÇÕES" onclick='AbrirModalParaSelecionarUsuario()'>
+                <input type="button" class="btn" value="FAZER TRANSAÇÃO" onclick='AbrirModalParaFazerTransação()'>
+            </div>
 
             <table class="table table-striped">
                 <thead class="table-dark">
@@ -64,6 +67,80 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn" data-bs-dismiss="modal" onclick="BuscarTranferenciasDoUsuario()">Verificar</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCriarTransação" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Digite o ID do usuário</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="label-float">
+                <input type="text" name="TranferIDdoUsuario" id="TranferIDdoUsuario" placeholder=" ">
+                <label id='LabelTranfer'>Insira o ID de Usuário</label>
+            </div>
+
+            <div class="label-float">
+                <input type="text" name="NomeDaTransação" id="NomeDaTransação" placeholder=" ">
+                <label>Insira o nome da transação</label>
+            </div>
+
+            <div class="label-float">
+                <input type="text" name="ModeloDaTransação" id="ModeloDaTransação" placeholder=" ">
+                <label>Insira o modelo de transação</label>
+            </div>
+
+            <div class="label-float">
+                <input type="number" name="ValorDaTransação" id="ValorDaTransação" placeholder=" ">
+                <label>Insira o valor da transação</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal" onclick="CriarNovaTransação()">Criar Transação</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSuccessTranfer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">PARABÉNS</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="label-float">
+                <p id="TransaçãoSucesso"></p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id='TransferCriada'class="btn" data-bs-dismiss="modal">Continuar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalFailTranfer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">ALGO DE ERRADO ACONTECEU...</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="label-float">
+                Verifique os dados informados
+            </div>
+        </div>
+        <div class="modal-footer">
             <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
         </div>
         </div>
